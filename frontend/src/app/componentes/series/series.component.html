@@ -1,0 +1,74 @@
+<div class="container">
+  <div class="row">
+    <div class="col s4">
+      <div class="card">
+        <div class="card-content">
+           <form #serieForm="ngForm" (ngSubmit)="addSerie(serieForm)">      <!-- observar que el evento ngSubmit dispara el metodo "addSerie", quien-->
+                                                                            <!-- recibe como parametro el propio formulario identificado con #identificador -->
+                                                                            <!-- Ojo, para que funcione "ngForm" hay que cargar la libreria FormsModule en  -->
+                                                                            <!-- en archivo app.module.ts: "import { FormsModule } from '@angular/forms';" -->
+                                                                            <!-- y despues agregar FormsModule en la sección "Import" del mismo archivo -->
+            <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="elServicio.selectedSerie._id">
+            <div class="row">                                               <!-- tomar el dato que se encuentra oculto -->
+              
+              <div class="input-field col s12">
+                <input type="text" name="nombre" #nombre="ngModel" [(ngModel)]="elServicio.selectedSerie.nombre" placeholder="Ingresar nombre">
+                                                                            <!-- La variable "#nombre" es de tipo "ngModel", asi luego la puedo usar en la  -->
+                                                                            <!-- clase de TypeScript -->
+              </div>
+
+              <div class="input-field col s12">
+                <input type="text" name="apellido" #apellido="ngModel" [(ngModel)]="elServicio.selectedSerie.apellido" placeholder="Ingresar apellido">
+              </div>
+
+              <div class="input-field col s12">
+                <input type="number" name="edad" #edad="ngModel" [(ngModel)]="elServicio.selectedSerie.edad" placeholder="Ingresar edad">
+              </div>
+
+              <div class="input-field col s12">
+                <input type="text" name="usuario" #usuario="ngModel" [(ngModel)]="elServicio.selectedSerie.usuario" placeholder="Ingresar usuario">
+              </div>
+
+              <div class="card-action">                                     <!-- para separar un poco uso la clase card-->
+                <div class="input-field col s12">
+                  <button class="btn right" style="margin-left: 4px;" (click)="resetForm(serieForm)">Limpiar</button>
+                                                                            <!-- le pasamos la variable #seriForm con el form entero-->
+                  <button class="btn right">Guardar</button>
+                </div>
+              </div>
+
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+        <div class="col s8">
+          <table>
+            <thead>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Edad</th>
+                <th>Usuario</th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let unaSerie of elServicio.series">
+                <td>{{unaSerie.nombre}}</td>
+                <td>{{unaSerie.apellido}}</td>
+                <td>{{unaSerie.edad}}</td>
+                <td>{{unaSerie.usuario}}</td>
+                <td>
+                  <a (click)="editSerie(unaSerie)">
+                    <i class="material-icons">edit</i>
+                  </a>
+                  <a (click)="deleteSerie(unaSerie._id)">
+                      <i class="material-icons">delete</i>
+                    </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+  
+  </div>
+</div>
